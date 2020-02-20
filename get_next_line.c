@@ -6,27 +6,17 @@
 /*   By: dlima-ra <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 21:37:12 by dlima-ra          #+#    #+#             */
-/*   Updated: 2020/02/19 09:12:35 by dlima-ra         ###   ########.fr       */
+/*   Updated: 2020/02/20 06:01:00 by dlima-ra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
-#include <string.h>
 
-//size_t BUFFER_SIZE = 33;
-
-int			finalzero(int fd, char **line, char **final, int ver)
+int				finalzero(int fd, char **line, char **final, int size)
 {
-
-	int x;
-
-	if (ver == BUFFER_SIZE)
-		return (get_next_line(fd, line));
-
-	x = 0;
 	*line = ft_strdup(final[fd]);
-	free(&final[fd]);
+	size++;
+	free(final[fd]);
 	final[fd] = NULL;
 	return (999);
 }
@@ -35,19 +25,18 @@ void			finaln(int fd, char **line, char **final, int size)
 {
 	char *temp;
 
-	*line = newString(final[fd], 0, size);
+	*line = newstring(final[fd], 0, size);
 	temp = ft_strdup(final[fd] + size + 1);
 	free(final[fd]);
-	final[fd] = temp;
+	final[fd] = ft_strdup(temp);
 	if (final[fd][0] == '\0')
 	{
 		free(final[fd]);
 		final[fd] = NULL;
 	}
-
 }
 
-static int		wline(char **line, char **final, int fd, int ver)
+static int		wline(char **line, char **final, int fd)
 {
 	int size;
 	int res;
@@ -55,27 +44,26 @@ static int		wline(char **line, char **final, int fd, int ver)
 	size = 0;
 	while (final[fd][size] != '\0' && final[fd][size] != '\n')
 		size++;
-	if(final[fd][size] == '\n')
+	if (final[fd][size] == '\n')
 		finaln(fd, line, final, size);
-	if(final[fd][size] == '\0')
+	else if (final[fd][size] == '\0')
 	{
-		res = finalzero(fd, line, final, ver);
+		res = finalzero(fd, line, final, size);
 		if (res == 999)
 			return (0);
 		else
 			return (res);
 	}
-
-
 	return (1);
 }
+
 static int		check(int ck, char **line, char **final, int fd)
 {
 	if (final[fd] == NULL && ck == 0)
 		return (0);
 	if (ck < 0)
 		return (-1);
-	return (wline(line, final, fd, ck));
+	return (wline(line, final, fd));
 }
 
 int				get_next_line(int fd, char **line)
@@ -96,8 +84,10 @@ int				get_next_line(int fd, char **line)
 		{
 			temp = ft_strjoin((const char *)final[fd], (const char *)buffer);
 			free(final[fd]);
-			final[fd] = temp;
+			final[fd] = ft_strdup(temp);
 		}
 	}
-	return (check(ver ,line, final, fd));
+	if (final[fd] == NULL)
+		final[fd] = ft_strdup("");
+	return (check(ver, line, final, fd));
 }

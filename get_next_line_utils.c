@@ -6,17 +6,17 @@
 /*   By: dlima-ra <dlima-ra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 02:50:12 by dlima-ra          #+#    #+#             */
-/*   Updated: 2020/02/19 06:57:49 by dlima-ra         ###   ########.fr       */
+/*   Updated: 2020/02/20 06:09:21 by dlima-ra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char                    *ft_strdup(const char *s1)
+char			*ft_strdup(const char *s1)
 {
-	char            *destiny;
-	size_t          size;
-	int                     i;
+	char			*destiny;
+	size_t			size;
+	int				i;
 
 	size = 0;
 	while (s1[size])
@@ -34,21 +34,16 @@ char                    *ft_strdup(const char *s1)
 	return (destiny);
 }
 
-char            *ft_strjoin(char const *s1, char const *s2)
+char			*ft_strjoin(char const *s1, char const *s2)
 {
-	int             i;
-	int             j;
-	int             size;
-	char    *res;
+	int				i;
+	int				j;
+	int				size;
+	char			*res;
 
 	if (!s1 || !s2)
 		return (NULL);
-	size = 0;
-	while (s1[size])
-		size++;
-	i = 0;
-	while (s2[i++])
-		size++;
+	size = ft_strlen(s1) + ft_strlen(s2);
 	if (!(res = (char*)malloc(sizeof(char) * (size + 1))))
 		return (NULL);
 	i = 0;
@@ -67,8 +62,7 @@ char            *ft_strjoin(char const *s1, char const *s2)
 	return (res);
 }
 
-
-char	*newString(char const *str, unsigned int start, size_t size)
+char			*newstring(char const *str, unsigned int start, size_t size)
 {
 	char			*strsub;
 	unsigned int	i;
@@ -83,4 +77,16 @@ char	*newString(char const *str, unsigned int start, size_t size)
 	}
 	strsub[i] = '\0';
 	return (strsub);
+}
+
+int				ft_strlen(const char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		i++;
+	}
+	return (i);
 }

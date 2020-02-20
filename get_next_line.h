@@ -6,7 +6,7 @@
 /*   By: dlima-ra <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 21:37:39 by dlima-ra          #+#    #+#             */
-/*   Updated: 2020/02/19 07:09:19 by dlima-ra         ###   ########.fr       */
+/*   Updated: 2020/02/20 06:12:15 by dlima-ra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,12 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <string.h>
 
 int					get_next_line(int fd, char **line);
 char				*ft_strdup(const char *s1);
-char 				*ft_strjoin(char const *s1, char const *s2);
-char				*newString(char const *str, unsigned int start, size_t size);
+char				*ft_strjoin(char const *s1, char const *s2);
+char				*newstring(char const *str,
+					unsigned int start, size_t size);
+int					ft_strlen(const char *str);
 #endif
